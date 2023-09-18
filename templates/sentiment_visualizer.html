@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Youtube Comments Sentiment Analyzer</title>
+{% endblock %}
+{% block body %}
+<div class="h-100 d-flex flex-column align-items-center gap-4 my-5">
+	<div class="d-flex gap-5">
+		<a class="align-self-center" href="/">Back</a>
+		<embed width="480" height="360" src="{{ url }}">
+		<div class="d-flex flex-column gap-3 align-items-center align-self-center">
+			<h3>Overall Sentiment</b></h3>
+			{% set border_color = "border-warning" %}
+			{% set emoji = "&#128527;" %}
+			{% if comments.overall_sentiment == 'POSITIVE' %}
+			{% set border_color = "border-success" %}
+			{% set emoji = "&#128516;" %}
+			{% elif comments.overall_sentiment == 'NEGATIVE' %}
+			{% set border_color = "border-danger" %}
+			{% set emoji = "&#128557;" %}
+			{% endif %}
+			<div
+				class="border {{ border_color }} rounded-circle d-flex justify-content-center align-items-center"
+				style="width: 96px; height: 96px; border-width: 12px !important;">
+				{{ comments.overall_score }}
+			</div>
+			<h4>{{ comments.overall_sentiment }}{{ emoji | safe}}</h4>
+		</div>
+	</div>
+	{% set maxrows = [comments.positive | length, comments.negative | length, comments.neutral | length] | max %}
+	<table class="table table-bordered w-75">
+		<thead>
+			<tr>
+				<th class="bg-dark text-white text-center align-middle">Top Positive Comments</th>
+				<th class="bg-dark text-white text-center align-middle">Top Negative Comments</th>
+				<th class="bg-dark text-white text-center align-middle">Top Neutral Comments</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in range(maxrows) %}
+			<tr>
+				<td class="bg-success">
+					{% if comments.positive[row] is defined %}
+					{{  comments.positive[row].comment }}
+					{% endif %}
+				</td>
+				<td class="bg-danger">
+					{% if comments.negative[row] is defined %}
+					{{  comments.negative[row].comment }}
+					{% endif %}
+				</td>
+				<td class="bg-warning">
+					{% if comments.neutral[row] is defined %}
+					{{  comments.neutral[row].comment }}
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
