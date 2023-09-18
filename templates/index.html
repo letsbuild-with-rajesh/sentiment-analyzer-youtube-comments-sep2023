@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Youtube Comments Sentiment Analyzer</title>
+{% endblock %}
+{% block body %}
+<div class="h-100 d-flex flex-column align-items-center gap-4">
+	<div class="d-flex flex-column align-items-center">
+		<h3>Sentiment Analyzer</h3>
+		<h4>(Youtube comments)</h4>
+	</div>
+	<form id="evaluate-sentiment" class="d-flex flex-column align-items-center gap-2" action="/evaluate_sentiment" method="POST">
+		<input id="url" class="rounded" type="url" placeholder="Enter url here" name="url" style="width: 320px;" required />
+		<div class="d-flex gap-2" >
+			<button class="btn-primary rounded px-2 pb-1" style="width: fit-content" type="submit">Evaluate sentiment</button>
+			<a href="/recents"><button type="button" class="btn-info rounded px-2 pb-1">&#8986;&nbsp;Recents</button></a>
+		</div>
+	</form>
+	<div>
+		<b>Note:</b>
+		This app looks only at the recent sentiments (last 20 comments) on the video.
+	</div>
+</div>
+{% endblock %}
