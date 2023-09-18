@@ -27,13 +27,13 @@
 			{% endif %}
 			<tr class="{{ bg_color }} text-white">
 				<td class="align-middle">
-					{{  video.title }}
+					<a class="text-white" href="{{ video.url }}" target="_blank">{{ video.title }}</a>
 				</td>
 				<td class="text-nowrap text-center align-middle">
-					{{  video.sentiment }} {{ emoji | safe }}
+					{{ video.sentiment }} {{ emoji | safe }}
 				</td>
 				<td class="text-center align-middle">
-					{{  video.score }}
+					{{ video.score }}
 				</td>
 			</tr>
 			{% endfor %}
