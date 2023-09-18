@@ -131,5 +131,19 @@ def evaluate_sentiment():
 
   return render_template('sentiment_visualizer.html', url=video_url, comments=comments)
 
+@app.route("/recents", methods=['GET'])
+def recents():
+  recent_videos = Video.query.order_by(Video.created_at.desc()).all()
+  videos = []
+  for video in recent_videos:
+    videos.append({
+    	'url': video.url,
+      'title': video.title,
+      'sentiment': video.sentiment,
+      'score': video.score,
+    })
+
+  return render_template('recents.html', videos=videos)
+
 if __name__ == "__main__":
   app.run(debug=True)
