@@ -3,10 +3,13 @@
 <title>Recents</title>
 {% endblock %}
 {% block body %}
-<div class="h-100 d-flex flex-column align-items-center gap-4">
-	<a class="align-self-center" href="/">Back</a>
-	<h2 class="text-decoration-underline">Recents</h2>
-	<table class="table table-bordered w-75">
+<div class="h-100 d-flex flex-column align-items-center gap-4" style="min-width: 50%">
+	<div class="w-100 d-flex justify-content-between align-items-center">
+		<a href="/"><button type="button" class="btn-primary rounded px-2 pb-1">Back</button></a>
+		<h2 class="text-decoration-underline">Recents</h2>
+		<button type="submit" class="btn-danger rounded px-2 pb-1" onclick="clearRecents()">Clear recents</button>
+	</div>
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th class="bg-dark text-white text-center align-middle">Title</th>
@@ -40,4 +43,9 @@
 		</tbody>
 	</table>
 </div>
+<script type="text/javascript">
+	const clearRecents = () => {
+		fetch('/recents', { method: 'DELETE' }).then(() => window.location.reload());
+	}
+</script>
 {% endblock %}
